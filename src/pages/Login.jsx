@@ -2,7 +2,12 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginService } from "../services/auth.services";
 
+import {useContext} from 'react'
+import { AuthContext } from "../context/auth.context";
+
 function Login() {
+
+  const {authenticateUser} = useContext(AuthContext)
   
   const navigate = useNavigate()
 
@@ -29,9 +34,23 @@ function Login() {
       console.log(response)
       
       //3 recibir el Token
-      console.log(response.date.authToken);
+      console.log(response.data.authToken);
       
       //4 hacer algo con el token
+
+      // metodo de localStorage para guardar info => localStorage.setItem()
+      localStorage.setItem("authToken", response.data.authToken)
+      // arg1 el nombre de lo que vamos a guardar
+
+      //arg2 el valor de lo que vamos a guardar
+
+      //en este punto nosotros tenemos que guardar informacion de que el usuario esta login
+      // esta info estara en un estado glova(context)
+      authenticateUser()
+
+      navigate("/profile")
+
+
     } catch (error) {
             // console.log(error.response.status)
       // console.log(error.response.data.errorMessage)
@@ -40,7 +59,8 @@ function Login() {
         setErrorMessage(error.response.data.errorMessage)
       } else {
         // si el error es otro (500) entonces si redirecciono a /error
-        navigate("/error")
+        //navigate("/error")
+        console.log(error)
       }
       
     }
