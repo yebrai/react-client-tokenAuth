@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import { verifyService } from "../services/auth.services";
+import BounceLoader from "react-spinners/BounceLoader";
 
 const AuthContext = createContext();
 //es un Componentes, lo crea react con createContext()
@@ -48,7 +49,7 @@ function AuthWrapper(props) {
   if (isFetching) {
     return (
         <div className="App">
-            <h3>... Validando al usuario</h3>
+        <BounceLoader color={"purple"}/>
         </div>
     )
   }

@@ -1,5 +1,5 @@
 import {useContext} from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import {AuthContext} from "../context/auth.context.js"
 
 
@@ -11,20 +11,38 @@ function Navbar() {
     localStorage.removeItem("authToken")
     //despues de borrar el token, volvemos a invocar la funcion de validar
     authenticateUser()
+    //setuserr(null)
+    //setIsLoggin(false)
+    //Opcionalmente podemos agregar la redireccion aunque ahora ya lo hace
   }
+
+  const asingClassName= (navInfo) => {
+      console.log(navInfo.isActive);
+      if(navInfo.isActive) {
+        return "nav-active"
+      } else {
+        return "nav-inactive"
+      }
+  }
+
+  //Navlink nos permite agregar como valor a className, id, styles incluso innerText de etiquetas. Una funcion que verifica la locacion actual del usuario
+
+
   return (
     <div>
     {isLoggedIn ? (
        <div>
-    <Link to="/">Home</Link>
+    <NavLink to="/" className={asingClassName}><button>Home</button></NavLink>
+    <NavLink to="/profile" className={asingClassName}><button>Perfil</button></NavLink>
+    <span className='nav-inactive'>
     <button onClick={handleLogout}>Cerrar Sesión</button>
-
+</span>
        </div>
     ) : (
       <div>
-      <Link to="/">Home</Link>
-    <Link to="/login">Login</Link>
-    <Link to="/signup">Signup</Link>
+      <NavLink to="/" className={asingClassName}><button>Home</button></NavLink>
+    <NavLink to="/login" className={asingClassName}><button>Login</button></NavLink>
+    <NavLink to="/signup" className={asingClassName}><button>Signup</button></NavLink>
 </div>
     )} 
 
