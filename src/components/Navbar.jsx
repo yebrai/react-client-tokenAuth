@@ -24,6 +24,7 @@ function Navbar() {
         return "nav-inactive"
       }
   }
+  
 
   //Navlink nos permite agregar como valor a className, id, styles incluso innerText de etiquetas. Una funcion que verifica la locacion actual del usuario
 
